@@ -1,4 +1,4 @@
-package com.megaCab.Services;
+package com.megaCab.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

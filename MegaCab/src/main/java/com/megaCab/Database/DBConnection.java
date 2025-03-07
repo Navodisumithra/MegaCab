@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class dbConnection {private static final String URL = "jdbc:mysql://127.0.0.1:3306/megaCab";
+public class DBConnection {private static final String URL = "jdbc:mysql://127.0.0.1:3306/megaCab";
     private static final String USER = "root";
     private static final String PASSWORD = ""; // Use the correct password
 
