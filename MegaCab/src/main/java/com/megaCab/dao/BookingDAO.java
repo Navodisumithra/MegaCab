@@ -24,12 +24,12 @@ public class BookingDAO {
      * @param customerId The ID of the customer.
      * @return A list of Booking objects.
      */
-    public List<Booking> getBookingsByUser(int customerId) {
+    public List<Booking> getBookingsByUser(String customerId) {
         List<Booking> bookings = new ArrayList<>();
         String query = "SELECT * FROM bookings WHERE customerID = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, customerId);
+            stmt.setString(1, customerId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -42,6 +42,21 @@ public class BookingDAO {
         return bookings;
     }
 
+    public boolean updateBookingStatus(int bookingID, String newStatus) {
+        String sql = "UPDATE bookings SET status = ? WHERE bookingID = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, bookingID);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Creates a new booking in the database.
      *
@@ -49,7 +64,7 @@ public class BookingDAO {
      * @return True if the booking was successfully created, false otherwise.
      */
     public boolean createBooking(Booking booking) {
-        String query = "INSERT INTO bookings (customerID, pickupPoint, destination, pickupDate, carType, amount, status, couponCode, bookedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO bookings (customerID, pickupPoint, destination, pickupDate, carType, amount, status, couponCode, bookedDate, distance, baseFare) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, booking.getCustomerID());
@@ -61,6 +76,8 @@ public class BookingDAO {
             stmt.setString(7, booking.getStatus());
             stmt.setString(8, booking.getCouponCode());
             stmt.setDate(9, new java.sql.Date(new java.util.Date().getTime()));
+            stmt.setDouble(10, booking.getDistance());
+            stmt.setDouble(11, booking.getBaseFare());
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -176,6 +193,9 @@ public class BookingDAO {
         booking.setStatus(rs.getString("status"));
         booking.setCouponCode(rs.getString("couponCode"));
         booking.setBookedDate(rs.getDate("bookedDate"));
+        booking.setBaseFare(rs.getDouble("baseFare"));
+        booking.setDistance(rs.getDouble("distance"));
+
         return booking;
     }
 
@@ -190,5 +210,4 @@ public class BookingDAO {
         System.err.println(message);
         e.printStackTrace();
     }
-
 }

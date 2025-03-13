@@ -148,14 +148,20 @@
         </div>
 
         <div class="mb-3">
-            <label for="status" class="form-label">Booking Status</label>
-            <select id="status" name="status" class="form-control">
-                <option value="Pending">Pending</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Cancelled">Cancelled</option>
-                <option value="Completed">Completed</option>
-            </select>
+            <label for="distance" class="form-label">Distance</label>
+            <input type="number" id="distance" name="distance" class="form-control" step="0.01" required>
         </div>
+
+
+    <%--        <div class="mb-3">--%>
+<%--            <label for="status" class="form-label">Booking Status</label>--%>
+<%--            <select id="status" name="status" class="form-control">--%>
+<%--                <option value="Pending">Pending</option>--%>
+<%--                <option value="Confirmed">Confirmed</option>--%>
+<%--                <option value="Cancelled">Cancelled</option>--%>
+<%--                <option value="Completed">Completed</option>--%>
+<%--            </select>--%>
+<%--        </div>--%>
 
         <div class="mb-3">
             <label for="couponCode" class="form-label">Coupon Code</label>

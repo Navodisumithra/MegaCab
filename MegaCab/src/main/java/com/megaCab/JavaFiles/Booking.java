@@ -16,7 +16,11 @@ public class Booking {
     private double amount;
     private String status;
     private String couponCode;
+    private double distance;
     private Date bookedDate; // SQL Date for database compatibility
+    private double baseFare;
+    private double taxRate;
+    private double promotionDiscount;
 
     /**
      * Default constructor for framework compatibility (e.g., JPA, Hibernate).
@@ -40,7 +44,7 @@ public class Booking {
      * @param bookedDate  The date when the booking was made.
      */
     public Booking(int bookingID, int customerID, String pickupPoint, String destination, Date pickupDate,
-                   String carType, double amount, String status, String couponCode, Date bookedDate) {
+                   String carType, double amount, String status, String couponCode, Date bookedDate, double distance) {
         this.bookingID = bookingID;
         this.customerID = customerID;
         this.pickupPoint = pickupPoint;
@@ -51,6 +55,7 @@ public class Booking {
         this.status = status;
         this.couponCode = couponCode;
         this.bookedDate = bookedDate;
+        this.distance = distance;
     }
 
     // Getters and Setters
@@ -132,6 +137,42 @@ public class Booking {
 
     public void setBookedDate(Date bookedDate) {
         this.bookedDate = bookedDate;
+    }
+
+    public double getBaseFare() {
+        return baseFare;
+    }
+
+    public void setBaseFare(double baseFare) {
+        this.baseFare = baseFare;
+    }
+
+    public double getTaxRate() {
+        return taxRate;
+    }
+
+    public void setTaxRate(double taxRate) {
+        this.taxRate = taxRate;
+    }
+
+    public double getPromotionDiscount() {
+        return promotionDiscount;
+    }
+
+    public void setPromotionDiscount(double promotionDiscount) {
+        this.promotionDiscount = promotionDiscount;
+    }
+
+    public void setPickupDate(Date pickupDate) {
+        this.pickupDate = pickupDate;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     /**

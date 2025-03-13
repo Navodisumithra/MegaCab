@@ -32,33 +32,27 @@ To change this template use File | Settings | File Templates.--%>
             <th>Car Type</th>
             <th>Amount</th>
             <th>Status</th>
-            <th>Coupon Code</th>
             <th>Booked Date</th>
-            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <%
-
-            for (Booking booking : bookings) {
-                out.println("<tr>");
-                out.println("<td>" + booking.getBookingID() + "</td>");
-                out.println("<td>" + booking.getCustomerID() + "</td>");
-                out.println("<td>" + booking.getPickupPoint() + "</td>");
-                out.println("<td>" + booking.getDestination() + "</td>");
-                out.println("<td>" + booking.getPickupDate() + "</td>");
-                out.println("<td>" + booking.getCarType() + "</td>");
-                out.println("<td>" + booking.getAmount() + "</td>");
-                out.println("<td>" + booking.getStatus() + "</td>");
-                out.println("<td>" + booking.getCouponCode() + "</td>");
-                out.println("<td>" + booking.getBookedDate() + "</td>");
-                out.println("<td>");
-                out.println("<a href='" + request.getContextPath() + "/admin/updateBooking?bookingID=" + booking.getBookingID() + "' class='btn btn-sm btn-primary'>Edit</a>");
-                out.println("<a href='" + request.getContextPath() + "/admin/deleteBooking?bookingID=" + booking.getBookingID() + "' class='btn btn-sm btn-danger'>Delete</a>");
-                out.println("</td>");
-                out.println("</tr>");
+            if (bookings != null && !bookings.isEmpty()) {
+                for (Booking booking : bookings) {
+                    out.println("<tr>");
+                    out.println("<td>" + booking.getBookingID() + "</td>");
+                    out.println("<td>" + booking.getCustomerID() + "</td>");
+                    out.println("<td>" + booking.getPickupPoint() + "</td>");
+                    out.println("<td>" + booking.getDestination() + "</td>");
+                    out.println("<td>" + booking.getPickupDate() + "</td>");
+                    out.println("<td>" + booking.getCarType() + "</td>");
+                    out.println("<td>" + booking.getAmount() + "</td>");
+                    out.println("<td>" + booking.getStatus() + "</td>");
+                    out.println("<td>" + booking.getBookedDate() + "</td>");
+                }
+            } else {
+                out.println("<tr><td colspan='12' class='text-center'>No bookings found.</td></tr>");
             }
-
         %>
         </tbody>
     </table>

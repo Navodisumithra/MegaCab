@@ -190,11 +190,11 @@
         </li>
         <li class="sidebar-menu-item" data-section="drivers">
             <i class="fas fa-id-badge sidebar-menu-icon"></i>
-            <span><a href="drivers.jsp" style="text-decoration: none; color: inherit;">Drivers</a></span>
+            <span><a href="drivers" style="text-decoration: none; color: inherit;">Drivers</a></span>
         </li>
         <li class="sidebar-menu-item" data-section="vehicles">
             <i class="fas fa-car sidebar-menu-icon"></i>
-            <span><a href="vehicles.jsp" style="text-decoration: none; color: inherit;">Vehicles</a></span>
+            <span><a href="vehicles" style="text-decoration: none; color: inherit;">Vehicles</a></span>
         </li>
         <li class="sidebar-menu-item" data-section="promotions">
             <i class="fas fa-tags sidebar-menu-icon"></i>
@@ -221,7 +221,7 @@
         <div class="user-profile">
             <img src="https://via.placeholder.com/40" alt="Profile Picture" />
             <span>Navodi Sumithra</span>
-            <a href="#" class="btn btn-danger btn-sm ms-3">Logout</a>
+            <a href="logout" class="btn btn-danger btn-sm ms-3">Logout</a>
         </div>
     </nav>
     <!-- Dashboard Section -->

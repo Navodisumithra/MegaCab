@@ -28,12 +28,13 @@ public class BookingServlet extends HttpServlet {
             return;
         }
 
-        int customerId = (int) session.getAttribute("customerId");
+        String customerId = (String) session.getAttribute("customerId");
 
         try {
             // Fetch bookings for the logged-in customer
             List<Booking> bookings = bookingDAO.getBookingsByUser(customerId);
             request.setAttribute("bookings", bookings);
+            System.out.println(bookings);
 
             // Forward to the appropriate JSP page
             RequestDispatcher dispatcher = request.getRequestDispatcher("/adminDashboard.jsp");
@@ -48,40 +49,74 @@ public class BookingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve form data and create a new booking
-        Booking booking = new Booking();
-        boolean isBookingSuccessful = false;
+        String action = request.getParameter("action");
+        System.out.println("action: " + action);
 
-        booking.setCustomerID(Integer.parseInt(request.getParameter("customerId")));
-        booking.setPickupPoint(request.getParameter("pickupPoint"));
-        booking.setDestination(request.getParameter("destination"));
-        booking.setPickupDate(request.getParameter("pickupDate"));
-        booking.setCarType(request.getParameter("carType"));
-        booking.setStatus(request.getParameter("status"));
-        booking.setAmount(Double.parseDouble(request.getParameter("amount")));
-        booking.setCouponCode(request.getParameter("couponCode"));
+        if ("updateStatus".equals(action)) {
+            int bookingID = Integer.parseInt(request.getParameter("bookingID"));
+            String newStatus = request.getParameter("status");
 
-        isBookingSuccessful = bookingService.createNewBooking(booking);
+            boolean isUpdated = bookingService.updateBookingStatus(bookingID, newStatus);
 
-
-        // Redirect based on booking success or failure
-        if (isBookingSuccessful) {
-            response.sendRedirect(request.getContextPath() + "/cabBookingSuccess.jsp");
+            if (isUpdated) {
+                response.sendRedirect(request.getContextPath() + "/admin_booking");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/admin_booking");
+            }
         } else {
-            response.sendRedirect(request.getContextPath() + "/cabBookingFailed.jsp");
-        }
+            Booking booking = new Booking();
+            boolean isBookingSuccessful = false;
 
-        try {
-            // Populate booking object with form data
+            double totalFare = bookingService.calculateTotalFare(booking);
+            request.setAttribute("totalFare", totalFare);
+            request.setAttribute("booking", booking);
 
-        } catch (NumberFormatException | NullPointerException e) {
-            // Handle invalid input or missing parameters
-            request.setAttribute("errorMessage", "Invalid input. Please check the form fields.");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred while processing your request.");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            booking.setCustomerID(Integer.parseInt(request.getParameter("customerId")));
+            booking.setPickupPoint(request.getParameter("pickupPoint"));
+            booking.setDestination(request.getParameter("destination"));
+            booking.setPickupDate(request.getParameter("pickupDate"));
+            booking.setCarType(request.getParameter("carType"));
+            booking.setStatus("PENDING");
+            booking.setAmount(Double.parseDouble(request.getParameter("amount")));
+            booking.setCouponCode(request.getParameter("couponCode"));
+            booking.setDistance(Double.parseDouble(request.getParameter("distance")));
+
+            double baseFare = calculateBaseFare(booking.getCarType(), booking.getDistance());
+            booking.setBaseFare(baseFare);
+
+            isBookingSuccessful = bookingService.createNewBooking(booking);
+
+            if (isBookingSuccessful) {
+                response.sendRedirect(request.getContextPath() + "/cabBookingSuccess.jsp");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/cabBookingFailed.jsp");
+            }
         }
     }
+    private double calculateBaseFare(String carType, double distance) {
+        // Define base rates for different car types (per kilometer)
+        double sedanRate = 10.0; // $10 per km for Sedan
+        double suvRate = 15.0;   // $15 per km for SUV
+        double vanRate = 20.0;   // $20 per km for Van
+
+        // Determine the rate based on the car type
+        double ratePerKm;
+        switch (carType.toUpperCase()) {
+            case "SEDAN":
+                ratePerKm = sedanRate;
+                break;
+            case "SUV":
+                ratePerKm = suvRate;
+                break;
+            case "VAN":
+                ratePerKm = vanRate;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid car type: " + carType);
+        }
+
+        // Calculate base fare as rate per km multiplied by distance
+        return ratePerKm * distance;
+    }
+
 }
