@@ -44,7 +44,7 @@
                 <td><%= user.getUserType()%></td>
                 <td>
                     <a href="${pageContext.request.contextPath}/editUser.jsp?userId=<%=user.getId()%>&name=<%=user.getName()%>&address=<%=user.getAddress()%>&nic=<%=user.getNic()%>&telephone=<%=user.getTelephone()%>&password=<%=user.getPassword()%>&email=<%=user.getEmail()%>" class="btn btn-primary btn-sm">Edit</a>
-                    <a href="${pageContext.request.contextPath}/admin/deleteBooking?bookingID=<%= booking.getBookingID() %>" class="btn btn-sm btn-danger">Delete</a>
+
                 </td>
             </tr>
         <%

@@ -32,7 +32,7 @@ public class AdminBookingServlet extends HttpServlet {
             List<Booking> bookings = bookingService.getAllBookings();
             request.setAttribute("bookings", bookings);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/adminBookingManage.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminBookingManage.jsp");
             dispatcher.forward(request, response);
 
         } else if ("edit".equals(action)) {
@@ -42,7 +42,7 @@ public class AdminBookingServlet extends HttpServlet {
 
             if (booking != null) {
                 request.setAttribute("booking", booking);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/editBookingForm.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/editBookingForm.jsp");
                 dispatcher.forward(request, response);
             } else {
                 response.sendRedirect(request.getContextPath() + "/admin/booking?action=list&error=Booking not found");

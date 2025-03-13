@@ -1,11 +1,10 @@
-
-  Created by IntelliJ IDEA.
-  User: Windows
-  Date: 3/11/2025
-  Time: 8:50 PM
-  To change this template use File | Settings | File Templates.
-  <%@ page import="com.megaCab.JavaFiles.Booking" %>
-  <%@ page import="java.util.List" %>
+<%--Created by IntelliJ IDEA.
+User: Windows
+Date: 3/11/2025
+Time: 8:50 PM
+To change this template use File | Settings | File Templates.--%>
+<%@ page import="com.megaCab.JavaFiles.Booking" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
@@ -18,25 +17,6 @@
     <title>Admin - Manage Bookings</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script>
-        function updateStatus(bookingID, selectElement) {
-            const newStatus = selectElement.value;
-            fetch('${pageContext.request.contextPath}/admin/updateBookingStatus', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ bookingID: bookingID, status: newStatus })
-            }).then(response => {
-                if (response.ok) {
-                    alert('Status updated successfully!');
-                } else {
-                    alert('Failed to update status.');
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while updating the status.');
-            });
-        }
-    </script>
 </head>
 <body>
 <div class="container mt-5">
@@ -60,25 +40,24 @@
         <tbody>
         <%
 
-        for (Booking booking : bookings) {
-        out.println("<tr>");
-            out.println("<td>" + booking.getBookingID() + "</td>");
-            out.println("<td>" + booking.getCustomerID() + "</td>");
-            out.println("<td>" + booking.getPickupPoint() + "</td>");
-            out.println("<td>" + booking.getDestination() + "</td>");
-            out.println("<td>" + booking.getPickupDate() + "</td>");
-            out.println("<td>" + booking.getCarType() + "</td>");
-            out.println("<td>" + booking.getAmount() + "</td>");
-            out.println("<td>" + booking.getStatus() + "</td>");
-            out.println("<td>" + booking.getCouponCode() + "</td>");
-            out.println("<td>" + booking.getBookedDate() + "</td>");
-            
-            out.println("<td>");
+            for (Booking booking : bookings) {
+                out.println("<tr>");
+                out.println("<td>" + booking.getBookingID() + "</td>");
+                out.println("<td>" + booking.getCustomerID() + "</td>");
+                out.println("<td>" + booking.getPickupPoint() + "</td>");
+                out.println("<td>" + booking.getDestination() + "</td>");
+                out.println("<td>" + booking.getPickupDate() + "</td>");
+                out.println("<td>" + booking.getCarType() + "</td>");
+                out.println("<td>" + booking.getAmount() + "</td>");
+                out.println("<td>" + booking.getStatus() + "</td>");
+                out.println("<td>" + booking.getCouponCode() + "</td>");
+                out.println("<td>" + booking.getBookedDate() + "</td>");
+                out.println("<td>");
                 out.println("<a href='" + request.getContextPath() + "/admin/updateBooking?bookingID=" + booking.getBookingID() + "' class='btn btn-sm btn-primary'>Edit</a>");
                 out.println("<a href='" + request.getContextPath() + "/admin/deleteBooking?bookingID=" + booking.getBookingID() + "' class='btn btn-sm btn-danger'>Delete</a>");
                 out.println("</td>");
-            out.println("</tr>");
-        }
+                out.println("</tr>");
+            }
 
         %>
         </tbody>
