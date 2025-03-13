@@ -1,56 +1,52 @@
 package com.megaCab.Services;
 
-import com.megaCab.dao.BookingDAO;
-import com.megaCab.dao.DriverDao;
+import com.megaCab.JavaFiles.Booking;
 import com.megaCab.dao.AccountDao;
-import com.megaCab.dao.VehicleDao;
-import com.megaCab.dao.PramotionDao;
-import com.megaCab.JavaFiles.Booking; // Assuming Booking is a model class
-//import com.megaCab.JavaFiles.Driver; // Assuming Driver is a model class
-//import com.megaCab.JavaFiles.User; // Assuming User is a model class
-//import com.megaCab.JavaFiles.Vehicle; // Assuming Vehicle is a model class
-//import com.megaCab.JavaFiles.Promotion; // Assuming Promotion is a model class
+import com.megaCab.JavaFiles.User;
+import com.megaCab.dao.BookingDAO;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class AdminService {
-    private BookingDAO bookingDAO;
-    private DriverDao driverDAO;
     private AccountDao userDAO;
-    private VehicleDao vehicleDAO;
-    private PramotionDao promotionDAO;
+    private BookingDAO bookingDAO;
 
-    // Constructor to initialize DAOs
-    public AdminService() {
-        this.bookingDAO = new BookingDAO();
-        this.driverDAO = new DriverDao();
+    public AdminService() throws SQLException {
         this.userDAO = new AccountDao();
-        this.vehicleDAO = new VehicleDao();
-        this.promotionDAO = new PramotionDao();
+        this.bookingDAO = new BookingDAO();
     }
 
-    // Method to fetch all bookings
+    /**
+     * Fetches the admin's profile by username.
+     *
+     * @param username The admin's username.
+     * @return A User object representing the admin.
+     */
+    public User getAdminProfile(String username) {
+        return userDAO.findUserByUsername(username);
+    }
+
+    /**
+     * Updates the admin's profile in the database.
+     *
+     * @param admin The User object with updated details.
+     * @return True if the update was successful, false otherwise.
+     */
+    public boolean updateAdminProfile(User admin) {
+        return userDAO.updateUser(admin);
+    }
+
     public List<Booking> getAllBookings() {
         return bookingDAO.getAllBookings();
     }
 
-//    // Method to fetch all drivers
-//    public List<Driver> getAllDrivers() {
-//        return driverDAO.getAllDrivers();
-//    }
-//
-//    // Method to fetch all users
-//    public List<User> getAllUsers() {
-//        return userDAO.getAllUsers();
-//    }
-//
-//    // Method to fetch all vehicles
-//    public List<Vehicle> getAllVehicles() {
-//        return vehicleDAO.getAllVehicles();
-//    }
-//
-//    // Method to fetch all promotions
-//    public List<Promotion> getAllPromotions() {
-//        return promotionDAO.getAllPromotions();
-//    }
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
+    }
+
+    public boolean updateUserProfile(User user) {
+        return userDAO.updateUser(user);
+    }
+
 }

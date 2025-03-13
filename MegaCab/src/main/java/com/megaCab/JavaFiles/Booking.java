@@ -1,6 +1,6 @@
 package com.megaCab.JavaFiles;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -11,19 +11,18 @@ public class Booking {
     private int customerID;
     private String pickupPoint;
     private String destination;
-    private Date pickupDate;
+    private Date pickupDate; // SQL Date for database compatibility
     private String carType;
     private double amount;
     private String status;
     private String couponCode;
-    private Date bookedDate;
-    private String pickUpDate;
+    private Date bookedDate; // SQL Date for database compatibility
 
     /**
-     * Default constructor.
+     * Default constructor for framework compatibility (e.g., JPA, Hibernate).
      */
     public Booking() {
-        // Default constructor for framework compatibility (e.g., JPA, Hibernate)
+        // Default constructor
     }
 
     /**
@@ -91,8 +90,8 @@ public class Booking {
         return pickupDate;
     }
 
-    public void setPickupDate(Date pickupDate) {
-        this.pickupDate = pickupDate;
+    public void setPickupDate(String pickupDate) {
+       this.pickupDate = new java.sql.Date(new java.util.Date().getTime());
     }
 
     public String getCarType() {
@@ -156,14 +155,6 @@ public class Booking {
                 '}';
     }
 
-    public String getPickUpDate() {
-        return pickUpDate;
-    }
-
-    public void setPickUpDate(String pickUpDate) {
-        this.pickUpDate = pickUpDate;
-    }
-
     /**
      * Checks if two Booking objects are equal based on their bookingID.
      *
@@ -187,4 +178,7 @@ public class Booking {
     public int hashCode() {
         return Objects.hash(bookingID);
     }
+
+
+
 }

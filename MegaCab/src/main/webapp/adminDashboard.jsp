@@ -178,7 +178,11 @@
         </li>
         <li class="sidebar-menu-item" data-section="users">
             <i class="fas fa-user sidebar-menu-icon"></i>
-            <span><a href="users.jsp" style="text-decoration: none; color: inherit;">Users</a></span>
+            <span><a href="adminProfile.jsp" style="text-decoration: none; color: inherit;">Admin</a></span>
+        </li>
+        <li class="sidebar-menu-item" data-section="users">
+            <i class="fas fa-user sidebar-menu-icon"></i>
+            <span><a href="userManagement" style="text-decoration: none; color: inherit;">Users</a></span>
         </li>
         <li class="sidebar-menu-item" data-section="cabBooking">
             <i class="fas fa-taxi sidebar-menu-icon"></i>

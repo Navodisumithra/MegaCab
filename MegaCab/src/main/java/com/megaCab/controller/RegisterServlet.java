@@ -26,7 +26,8 @@ public class RegisterServlet extends HttpServlet {
         String telephone = request.getParameter("telephone");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword"); // Fixed parameter name <button class="citation-flag" data-index="1">
+        String confirmPassword = request.getParameter("confirmPassword");
+        String email = request.getParameter("email");// Fixed parameter name <button class="citation-flag" data-index="1">
 
         // Validation checks (omitted for brevity, same as original)
         // ... [keep your existing validation logic here] ...
@@ -37,14 +38,15 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
-            String sql = "INSERT INTO users (name, address, nic, telephone, username, password) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO users (name, address, nic, telephone, username, password,email) VALUES (?, ?, ?, ?, ?, ?,?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, name);
                 pstmt.setString(2, address);
                 pstmt.setString(3, nic);
                 pstmt.setString(4, telephone);
                 pstmt.setString(5, username);
-                pstmt.setString(6, password); // Removed confirmPassword from insert <button class="citation-flag" data-index="2">
+                pstmt.setString(6, password);
+                pstmt.setString(7,   email);// Removed confirmPassword from insert <button class="citation-flag" data-index="2">
 
                 int rowsInserted = pstmt.executeUpdate();
                 if (rowsInserted > 0) {

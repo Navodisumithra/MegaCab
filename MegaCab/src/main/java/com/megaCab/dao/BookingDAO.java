@@ -13,6 +13,9 @@ public class BookingDAO {
     // Constructor to initialize the database connection
     public BookingDAO() {
         connection = DBConnection.getConnection();
+        if (connection == null) {
+            throw new RuntimeException("Failed to establish database connection.");
+        }
     }
 
     /**
@@ -23,7 +26,7 @@ public class BookingDAO {
      */
     public List<Booking> getBookingsByUser(int customerId) {
         List<Booking> bookings = new ArrayList<>();
-        String query = "SELECT * FROM booking WHERE customerID = ?";
+        String query = "SELECT * FROM bookings WHERE customerID = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, customerId);
@@ -43,6 +46,7 @@ public class BookingDAO {
      * Creates a new booking in the database.
      *
      * @param booking The Booking object to be saved.
+     * @return True if the booking was successfully created, false otherwise.
      */
     public boolean createBooking(Booking booking) {
         String query = "INSERT INTO bookings (customerID, pickupPoint, destination, pickupDate, carType, amount, status, couponCode, bookedDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -51,15 +55,15 @@ public class BookingDAO {
             stmt.setInt(1, booking.getCustomerID());
             stmt.setString(2, booking.getPickupPoint());
             stmt.setString(3, booking.getDestination());
-            stmt.setString(4,booking.getPickUpDate());
+            stmt.setDate(4, booking.getPickupDate() != null ? new java.sql.Date(booking.getPickupDate().getTime()) : null);
             stmt.setString(5, booking.getCarType());
             stmt.setDouble(6, booking.getAmount());
-            stmt.setString(7, booking.getStatus()); // Default status can be set in the service layer
+            stmt.setString(7, booking.getStatus());
             stmt.setString(8, booking.getCouponCode());
             stmt.setDate(9, new java.sql.Date(new java.util.Date().getTime()));
 
-            int row = stmt.executeUpdate();
-            return row > 0;
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             handleSQLException(e, "Error creating booking");
         }
@@ -92,22 +96,23 @@ public class BookingDAO {
      * Updates an existing booking in the database.
      *
      * @param booking The Booking object with updated details.
+     * @return True if the booking was successfully updated, false otherwise.
      */
     public boolean updateBooking(Booking booking) {
-        String query = "UPDATE booking SET pickupPoint = ?, destination = ?, pickupDate = ?, carType = ?, amount = ?, status = ?, couponCode = ? WHERE bookingID = ?";
+        String query = "UPDATE bookings SET pickupPoint = ?, destination = ?, pickupDate = ?, carType = ?, amount = ?, status = ?, couponCode = ? WHERE bookingID = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, booking.getPickupPoint());
             stmt.setString(2, booking.getDestination());
-            stmt.setDate(3, new java.sql.Date(booking.getPickupDate().getTime()));
+            stmt.setDate(3, booking.getPickupDate() != null ? new java.sql.Date(booking.getPickupDate().getTime()) : null);
             stmt.setString(4, booking.getCarType());
             stmt.setDouble(5, booking.getAmount());
             stmt.setString(6, booking.getStatus());
             stmt.setString(7, booking.getCouponCode());
             stmt.setInt(8, booking.getBookingID());
 
-            int row = stmt.executeUpdate();
-            return row > 0;
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             handleSQLException(e, "Error updating booking with ID: " + booking.getBookingID());
         }
@@ -118,9 +123,10 @@ public class BookingDAO {
      * Deletes a booking from the database by its ID.
      *
      * @param bookingID The ID of the booking to delete.
+     * @return
      */
-    public void deleteBooking(int bookingID) {
-        String query = "DELETE FROM booking WHERE bookingID = ?";
+    public boolean deleteBooking(int bookingID) {
+        String query = "DELETE FROM bookings WHERE bookingID = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, bookingID);
@@ -128,6 +134,27 @@ public class BookingDAO {
         } catch (SQLException e) {
             handleSQLException(e, "Error deleting booking with ID: " + bookingID);
         }
+        return false;
+    }
+
+    /**
+     * Fetches a single booking by its ID.
+     *
+     * @param bookingID The ID of the booking to fetch.
+     * @return A Booking object if found, null otherwise.
+     */
+    public Booking getBookingByID(int bookingID) {
+        String query = "SELECT * FROM bookings WHERE bookingID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, bookingID);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToBooking(resultSet);
+            }
+        } catch (SQLException e) {
+            handleSQLException(e, "Error fetching booking with ID: " + bookingID);
+        }
+        return null;
     }
 
     /**
@@ -143,7 +170,7 @@ public class BookingDAO {
         booking.setCustomerID(rs.getInt("customerID"));
         booking.setPickupPoint(rs.getString("pickupPoint"));
         booking.setDestination(rs.getString("destination"));
-        booking.setPickupDate(rs.getDate("pickupDate"));
+ //       booking.setPickupDate(rs.getDate("pickupDate"));
         booking.setCarType(rs.getString("carType"));
         booking.setAmount(rs.getDouble("amount"));
         booking.setStatus(rs.getString("status"));
@@ -152,10 +179,16 @@ public class BookingDAO {
         return booking;
     }
 
-
+    /**
+     * Handles SQL exceptions by logging the error message and stack trace.
+     *
+     * @param e       The SQLException that occurred.
+     * @param message A custom error message to log.
+     */
     private void handleSQLException(SQLException e, String message) {
         // Replace with a proper logging framework like SLF4J or Log4j
         System.err.println(message);
         e.printStackTrace();
     }
+
 }

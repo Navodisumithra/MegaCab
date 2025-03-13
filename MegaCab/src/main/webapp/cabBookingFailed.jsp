@@ -85,7 +85,7 @@
 <div class="container">
   <h2 class="text-danger">Booking Failed!</h2>
   <p>Sorry, there was an issue processing your booking. Please try again later.</p>
-  <a href="${pageContext.request.contextPath}/jsp/cabBookingForm.jsp" class="btn btn-primary">Try Again</a>
+  <a href="/cabBooking.jsp" class="btn btn-primary">Try Again</a>
 </div>
 </body>
 </html>

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/admin/dashboard")
@@ -17,7 +18,11 @@ public class AdminDashboardServlet extends HttpServlet {
 
     @Override
     public void init() {
-        adminService = new AdminService();
+        try {
+            adminService = new AdminService();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

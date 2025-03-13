@@ -55,7 +55,7 @@ public class BookingServlet extends HttpServlet {
         booking.setCustomerID(Integer.parseInt(request.getParameter("customerId")));
         booking.setPickupPoint(request.getParameter("pickupPoint"));
         booking.setDestination(request.getParameter("destination"));
-        booking.setPickUpDate(request.getParameter("pickupDate"));
+        booking.setPickupDate(request.getParameter("pickupDate"));
         booking.setCarType(request.getParameter("carType"));
         booking.setStatus(request.getParameter("status"));
         booking.setAmount(Double.parseDouble(request.getParameter("amount")));

@@ -20,6 +20,7 @@
     <h2>User Registration</h2>
     <form action="register" method="post">
         <input type="text" name="name" placeholder="Full Name" required>
+        <input type="text" name="email" placeholder="Email " required>
         <input type="text" name="address" placeholder="Address" required>
         <input type="text" name="nic" placeholder="NIC (e.g., 123456789V)" required>
         <input type="tel" name="telephone" placeholder="Telephone (e.g., 0771234567)" required>
