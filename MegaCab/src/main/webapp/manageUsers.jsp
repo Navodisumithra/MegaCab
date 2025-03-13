@@ -29,7 +29,6 @@
             <th>Email</th>
             <th>Username</th>
             <th>User Type</th>
-            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -42,10 +41,6 @@
                 <td><%= user.getEmail()%></td>
                 <td><%= user.getUsername()%></td>
                 <td><%= user.getUserType()%></td>
-                <td>
-                    <a href="${pageContext.request.contextPath}/editUser.jsp?userId=<%=user.getId()%>&name=<%=user.getName()%>&address=<%=user.getAddress()%>&nic=<%=user.getNic()%>&telephone=<%=user.getTelephone()%>&password=<%=user.getPassword()%>&email=<%=user.getEmail()%>" class="btn btn-primary btn-sm">Edit</a>
-
-                </td>
             </tr>
         <%
             }
@@ -53,5 +48,6 @@
         </tbody>
     </table>
 </div>
+<a href="${pageContext.request.contextPath}/adminDashboard.jsp">Back to Dashboard</a>
 </body>
 </html>

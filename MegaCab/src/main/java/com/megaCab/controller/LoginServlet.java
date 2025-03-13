@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             } else if ("Driver".equalsIgnoreCase(userType)) {
                 response.sendRedirect("driverDashboard.jsp");
             } else if ("Customer".equalsIgnoreCase(userType)) {
-                response.sendRedirect("customerDashboard.jsp");
+                response.sendRedirect("customerDashboard.jsp?action=bookings");
             } else {
                 response.sendRedirect("login.jsp?error=Unknown%20user%20type.");
             }

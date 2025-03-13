@@ -83,10 +83,11 @@
     <h2>User Dashboard</h2>
         <a href="#"><i class="fas fa-user"></i> Profile</a>
         <a href="cabBooking.jsp"><i class="fas fa-calendar-check"></i> Bookings</a>
+        <a href="customerDashboard?action=bookings"><i class="fas fa-calendar-check"></i> View Bookings</a>
         <a href="bill.jsp"><i class="fas fa-credit-card"></i> Payment</a>
         <a href="#"><i class="fas fa-bullhorn"></i> Promotions</a>
         <a href="#"><i class="fas fa-question-circle"></i> Help</a>
-        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="logoutController"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 
 </div>
