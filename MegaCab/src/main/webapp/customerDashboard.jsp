@@ -85,7 +85,6 @@
         <a href="cabBooking.jsp"><i class="fas fa-calendar-check"></i> Bookings</a>
         <a href="customerDashboard?action=bookings"><i class="fas fa-calendar-check"></i> View Bookings</a>
         <a href="bill.jsp"><i class="fas fa-credit-card"></i> Payment</a>
-        <a href="#"><i class="fas fa-bullhorn"></i> Promotions</a>
         <a href="#"><i class="fas fa-question-circle"></i> Help</a>
         <a href="logoutController"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
@@ -94,28 +93,6 @@
 <div class="content">
     <div class="header">
         <h2>  User Dashboard </h2>
-    </div>
-    <div class="dashboard-cards">
-        <div class="card">
-            <i class="fas fa-chart-line"></i>
-            <h3>Statistics</h3>
-            <p>View your stats</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-calendar"></i>
-            <h3>Appointments</h3>
-            <p>Check your schedule</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-bell"></i>
-            <h3>Notifications</h3>
-            <p>Latest updates</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-cogs"></i>
-            <h3>Settings</h3>
-            <p>Customize your experience</p>
-        </div>
     </div>
 </div>
 </body>

@@ -27,7 +27,7 @@ public class DriverDAO {
             pstmt.setBoolean(5, driver.isAvailable());
             pstmt.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
 
-            int rowsAffected = pstmt.executeUpdate();
+           int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();

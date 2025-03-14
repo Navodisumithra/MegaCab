@@ -13,9 +13,6 @@ public class BookingDAO {
     // Constructor to initialize the database connection
     public BookingDAO() {
         connection = DBConnection.getConnection();
-        if (connection == null) {
-            throw new RuntimeException("Failed to establish database connection.");
-        }
     }
 
     /**

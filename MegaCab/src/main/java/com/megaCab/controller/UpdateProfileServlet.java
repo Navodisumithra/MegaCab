@@ -11,11 +11,7 @@ public class UpdateProfileServlet extends HttpServlet {
     private AdminService adminService;
 
     public void init() {
-        try {
-            adminService = new AdminService();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        adminService = new AdminService();
     }
 
     @Override

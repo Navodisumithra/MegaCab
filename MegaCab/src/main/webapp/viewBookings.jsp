@@ -8,9 +8,8 @@
 <%@ page import="com.megaCab.JavaFiles.Booking" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
-%>
+<%  List<Booking> bookings = (List<Booking>) request.getAttribute("bookings"); %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,10 +40,8 @@
         </tr>
         </thead>
         <tbody>
-        <%
-            if (bookings != null && !bookings.isEmpty()) {
-                for (Booking booking : bookings) {
-        %>
+        <%   if (bookings != null && !bookings.isEmpty()) {
+                for (Booking booking : bookings) {      %>
         <tr>
             <td><%= booking.getBookingID() %></td>
             <td><%= booking.getCustomerID() %></td>
@@ -53,10 +50,11 @@
             <td><%= booking.getCarType() %></td>
             <td>
                 <span class="badge <%= "Pending".equals(booking.getStatus()) ? "bg-warning" :
-                                     "Completed".equals(booking.getStatus()) ? "bg-success" :
-                                     "Cancelled".equals(booking.getStatus()) ? "bg-danger" : "bg-secondary" %>">
-                    <%= booking.getStatus() %>
+                 "Completed".equals(booking.getStatus()) ? "bg-success" :
+                 "Cancelled".equals(booking.getStatus()) ? "bg-danger" : "bg-secondary" %>">
+                                    <%= booking.getStatus() %>
                 </span>
+
             </td>
             <td><%= booking.getPickupDate() %></td>
             <td>$<%= booking.getAmount() %></td>
@@ -69,14 +67,9 @@
             <td>
                 <button onclick="redirectToPayment(<%= booking.getBookingID() %>, <%= booking.getAmount() %>)">Pay</button>
             </td>
-            <%
-                }
-            %>
+            <%}%>
         </tr>
-        <%
-            }
-        } else {
-        %>
+        <%}} else {%>
         <tr>
             <td colspan="12" class="text-center">No bookings found.</td>
         </tr>

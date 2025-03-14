@@ -58,6 +58,12 @@ public class Booking {
         this.distance = distance;
     }
 
+    public Booking(int customerID, String pickupPoint, String destination) {
+        this.customerID = customerID;
+        this.pickupPoint = pickupPoint;
+        this.destination = destination;
+    }
+
     // Getters and Setters
     public int getBookingID() {
         return bookingID;

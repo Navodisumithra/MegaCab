@@ -248,23 +248,7 @@
 </div>
 <script>
     // Initialize Chart.js
-    const ctx = document.getElementById('earningsChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-            datasets: [{
-                label: 'Earnings',
-                data: [1200, 1900, 3000, 2500, 4000],
-                borderColor: '#007bff',
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
+    ;
     // Sidebar Navigation
     document.querySelectorAll('.sidebar-menu-item').forEach(item => {
         item.addEventListener('click', () => {

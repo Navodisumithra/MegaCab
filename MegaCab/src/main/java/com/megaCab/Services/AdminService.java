@@ -9,13 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AdminService {
-    private AccountDao userDAO;
-    private BookingDAO bookingDAO;
+    private AccountDao userDAO = new AccountDao();
+    private BookingDAO bookingDAO =  new BookingDAO();
 
-    public AdminService() throws SQLException {
-        this.userDAO = new AccountDao();
-        this.bookingDAO = new BookingDAO();
-    }
 
     /**
      * Fetches the admin's profile by username.
